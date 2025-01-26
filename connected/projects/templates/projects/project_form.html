@@ -1,0 +1,47 @@
+{% extends "main.html" %} {% block content %}
+
+<main class="formPage my-xl">
+	<div class="content-box">
+		<div class="formWrapper">
+			<button onclick="history.back()" class="btn btn--main btn--sm">
+				Go Back!
+			</button>
+			<br />
+
+			<form class="form" method="POST" enctype="multipart/form-data">
+				{% csrf_token %} {% for field in form %}
+
+				<div class="form__field">
+					<label for="formInput#text">{{field.label}}: </label>
+					{{field}}
+				</div>
+				{% endfor %}
+				<p style="color: green"> <b> Given Tags:</b></p>
+
+				<div class="form__field">
+                    {% for tag in project.tags.all  %}
+						<div class="tag tag--pill tag--main project-tag"   data-tagid ="{{tag.id}}" data-projectid="{{project.id}}">
+							{{tag.name}} &#215;
+						</div>
+					{% endfor %}
+                </div>
+
+                <div class="form__field">
+                    <label for="formInput#text">New Tags:</label>
+                    <textarea class="input" name="newtags" placeholder="eg. React,Django"></textarea>
+                </div>
+
+
+				<input
+					class="btn btn--sub btn--lg my-md"
+					type="submit"
+					value="Submit"
+				/>
+			</form>
+		</div>
+	</div>
+</main>
+
+
+
+{% endblock %}
